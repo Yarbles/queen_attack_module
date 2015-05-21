@@ -1,0 +1,5 @@
+name = Queen Attack
+description = Calculates the queen's position and ability to attack.
+package = Epicodus Examples
+core= 7.x
+files[] = queen_attack.module

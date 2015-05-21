@@ -1,0 +1,70 @@
+<?php
+
+function queen_attack_menu() {
+    $items = array();
+    $items['queen_attack'] = array (
+    'title' => 'Queen Attack stuff',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('queen_attack_form'),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    );
+
+    $items['done'] = array(
+        'title' => 'Done',
+        'page callback' => 'queen_attack_done',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+
+    return $items;
+}
+
+function queen_attack_form() {
+    $form['queen_x'] = array(
+        '#title' => 'Queen X',
+        '#type' => 'textfield',
+        '#description' => t('Please enter your queen x coordinate'),
+    );
+    $form['queen_y'] = array(
+        '#title' => 'Queen Y',
+        '#type' => 'textfield',
+        '#description' => t('Please enter your queen y coordinate'),
+    );
+    $form['victim_x'] = array(
+        '#title' => 'Victim X',
+        '#type' => 'textfield',
+        '#description' => t('Please enter your victim x coordinate'),
+    );
+    $form['victim_y'] = array(
+        '#title' => 'Victim Y',
+        '#type' => 'textfield',
+        '#description' => t('Please enter your victim y coordinate'),
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Go',
+    );
+
+    return $form;
+}
+
+function queen_attack_form_submit($form, &$form_state) {
+    $queen_x = $form_state['values']['queen_x'];
+    $queen_y = $form_state['values']['queen_y'];
+    $victim_x = $form_state['values']['victim_x'];
+    $victim_y = $form_state['values']['victim_y'];
+
+    $queensum = $queen_x - $queen_y;
+    $victimsum = $victim_x - $victim_y;
+
+    $queendif = $queen_x - $queen_y;
+    $victimdif = $victim_x - $victim_y;
+
+    if(($queen_x === $victim_x || $queen_y === $victim_y) || ($queensum === $victimsum) || ($queendif === $victimdif)) {
+        return true;
+    } else {
+        return false;
+    }
+}
