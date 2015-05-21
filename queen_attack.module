@@ -2,12 +2,12 @@
 
 function queen_attack_menu() {
     $items = array();
-    $items['queen_attack'] = array (
-    'title' => 'Queen Attack stuff',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('queen_attack_form'),
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
+        $items['queen_attack'] = array (
+        'title' => 'Queen Attack stuff',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('queen_attack_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
     );
 
     $items['finish'] = array(
@@ -25,21 +25,29 @@ function queen_attack_form() {
         '#title' => 'Queen X',
         '#type' => 'textfield',
         '#description' => t('Please enter your queen x coordinate'),
+        '#element_validate' => array('element_validate_integer_positive', 'element_validate_number_range'),
+        '#required' => TRUE,
     );
     $form['queen_y'] = array(
         '#title' => 'Queen Y',
         '#type' => 'textfield',
         '#description' => t('Please enter your queen y coordinate'),
+        '#element_validate' => array('element_validate_integer_positive', 'element_validate_number_range'),
+        '#required' => TRUE,
     );
     $form['victim_x'] = array(
         '#title' => 'Victim X',
         '#type' => 'textfield',
         '#description' => t('Please enter your victim x coordinate'),
+        '#element_validate' => array('element_validate_integer_positive', 'element_validate_number_range'),
+        '#required' => TRUE,
     );
     $form['victim_y'] = array(
         '#title' => 'Victim Y',
         '#type' => 'textfield',
         '#description' => t('Please enter your victim y coordinate'),
+        '#element_validate' => array('element_validate_integer_positive', 'element_validate_number_range'),
+        '#required' => TRUE,
     );
 
     $form['submit'] = array(
@@ -48,6 +56,12 @@ function queen_attack_form() {
     );
 
     return $form;
+}
+
+function element_validate_number_range($element) {
+    if ($element['#value'] > 8 || $element['#value'] < 1) {
+        form_error($element, t("You cannot play chess"));
+    }
 }
 
 function queen_attack_form_submit($form, &$form_state) {
