@@ -10,7 +10,7 @@ function queen_attack_menu() {
     'type' => MENU_NORMAL_ITEM,
     );
 
-    $items['done'] = array(
+    $items['finish'] = array(
         'title' => 'Done',
         'page callback' => 'queen_attack_done',
         'access callback' => TRUE,
@@ -56,6 +56,13 @@ function queen_attack_form_submit($form, &$form_state) {
     $victim_x = $form_state['values']['victim_x'];
     $victim_y = $form_state['values']['victim_y'];
 
+    $queen_wins = 'You Sunk Their Battleship';
+    $victim_escapes = 'You Missed Bruh';
+
+    $_SESSION['queen_wins'] = $queen_wins;
+    $_SESSION['queen_wins'] = $victim_escapes;
+
+
     $queensum = $queen_x - $queen_y;
     $victimsum = $victim_x - $victim_y;
 
@@ -63,8 +70,20 @@ function queen_attack_form_submit($form, &$form_state) {
     $victimdif = $victim_x - $victim_y;
 
     if(($queen_x === $victim_x || $queen_y === $victim_y) || ($queensum === $victimsum) || ($queendif === $victimdif)) {
-        return true;
+        return $queen_wins;
     } else {
-        return false;
+        return $victim_escapes;
     }
+
+    $form_state['redirect'] = 'finish';
+}
+
+function queen_attack_done() {
+    $output = " ";
+
+    foreach($_SESSION['queen_wins'] as $value) {
+        $output = $output . $value . " ";
+    }
+
+    return "$output";
 }
