@@ -59,33 +59,22 @@ function queen_attack_form_submit($form, &$form_state) {
     $queen_wins = 'You Sunk Their Battleship';
     $victim_escapes = 'You Missed Bruh';
 
-    // $_SESSION['queen_wins'] = $queen_wins;
-    // $_SESSION['queen_wins'] = $victim_escapes;
-    //
-    //
-    $queensum = $queen_x - $queen_y;
-    $victimsum = $victim_x - $victim_y;
+    $queensum = $queen_x + $queen_y;
+    $victimsum = $victim_x + $victim_y;
 
     $queendif = $queen_x - $queen_y;
     $victimdif = $victim_x - $victim_y;
 
     if(($queen_x == $victim_x || $queen_y == $victim_y) || ($queensum == $victimsum) || ($queendif == $victimdif)) {
-        return $queen_wins;
+        $_SESSION['outcome'] = $queen_wins;
     } else {
-        return $victim_escapes;
+        $_SESSION['outcome'] = $victim_escapes;
     }
 
     $form_state['redirect'] = 'finish';
 }
 
 function queen_attack_done() {
-    // $output = " ";
-    //
-    // foreach($_SESSION['queen_wins'] as $value) {
-    //     $output = $output . $value . " ";
-    // }
-    //
-    // return "You output is: $output";
 
-    return "this works";
+    return "You output is: " . $_SESSION['outcome'];
 }
