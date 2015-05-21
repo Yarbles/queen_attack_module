@@ -85,5 +85,5 @@ function queen_attack_done() {
         $output = $output . $value . " ";
     }
 
-    return "$output";
+    return "You output is: $output";
 }
