@@ -79,11 +79,13 @@ function queen_attack_form_submit($form, &$form_state) {
 }
 
 function queen_attack_done() {
-    $output = " ";
+    // $output = " ";
+    //
+    // foreach($_SESSION['queen_wins'] as $value) {
+    //     $output = $output . $value . " ";
+    // }
+    //
+    // return "You output is: $output";
 
-    foreach($_SESSION['queen_wins'] as $value) {
-        $output = $output . $value . " ";
-    }
-
-    return "You output is: $output";
+    return "this works";
 }
